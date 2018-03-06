@@ -1,0 +1,285 @@
+﻿Task 1: Find a command to show list of all databases
+
+
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+
+Task2 : Create database
+
+use <database_name>
+
+
+> use my_database
+switched to db my_database
+> db
+my_database
+
+Task3 : CRUD
+
+Create:
+
+> db.employee.insert({"name":"nikita","age":"25","degree":"mca"})
+WriteResult({ "nInserted" : 1 })
+
+
+Read :
+
+ 
+> db.employee.find()
+{ "_id" : ObjectId("5a9e845cd3feb5e142f0b7fe"), "name" : "nishant", "age" : "22", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8470d3feb5e142f0b7ff"), "name" : "nikita", "age" : "25", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e84acd3feb5e142f0b802"), "name" : "shradha", "age" : "24", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e84bfd3feb5e142f0b803"), "name" : "pulkit", "age" : "20", "degree" : "bba" }
+{ "_id" : ObjectId("5a9e84cbd3feb5e142f0b804"), "name" : "sakshi", "age" : "26", "degree" : "mba" }
+{ "_id" : ObjectId("5a9e84d7d3feb5e142f0b805"), "name" : "kritika", "age" : "25", "degree" : "bca" }
+{ "_id" : ObjectId("5a9e851ad3feb5e142f0b806"), "name" : "divya", "age" : "20", "degree" : "bcom" }
+{ "_id" : ObjectId("5a9e8530d3feb5e142f0b807"), "name" : "shikher", "age" : "21", "degree" : "bmc" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85bbd3feb5e142f0b80c"), "name" : "ankita", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85c1d3feb5e142f0b80d"), "name" : "ankit", "age" : "23", "degree" : "btech" }
+> 
+
+
+> db.employee.find({"degree":"btech"})
+{ "_id" : ObjectId("5a9e845cd3feb5e142f0b7fe"), "name" : "nishant", "age" : "22", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85bbd3feb5e142f0b80c"), "name" : "ankita", "age" : "23", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e85c1d3feb5e142f0b80d"), "name" : "ankit", "age" : "23", "degree" : "btech" }
+
+
+Update:
+
+> db.employee.update( {"age":"23"}, {$set: {"degree":"btech-cse"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.employee.find({"degree":"btech-cse"})
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech-cse" }
+
+> db.employee.update( {"age":"23"}, {$set: {"degree":"btech-cse"}},{multi:true})
+
+WriteResult({ "nMatched" : 8, "nUpserted" : 0, "nModified" : 7 })
+> db.employee.find({"degree":"btech-cse"})
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85bbd3feb5e142f0b80c"), "name" : "ankita", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85c1d3feb5e142f0b80d"), "name" : "ankit", "age" : "23", "degree" : "btech-cse" }
+
+
+Remove :
+
+
+Example collection:
+
+> db.employeeRemove.find()
+{ "_id" : ObjectId("5a9e9058b3c54be162e0a4d2"), "name" : "ankita", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e906cb3c54be162e0a4d3"), "name" : "ajay", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e9082b3c54be162e0a4d4"), "name" : "vijay", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e908bb3c54be162e0a4d5"), "name" : "preeti", "age" : "23", "degree" : "btech", "remove" : "no" }
+
+Removing one document : 
+
+> db.employeeRemove.remove({"remove":"no"})
+WriteResult({ "nRemoved" : 1 })
+> db.employeeRemove.find()
+{ "_id" : ObjectId("5a9e9058b3c54be162e0a4d2"), "name" : "ankita", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e906cb3c54be162e0a4d3"), "name" : "ajay", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e9082b3c54be162e0a4d4"), "name" : "vijay", "age" : "23", "degree" : "btech", "remove" : "yes" }
+
+
+> db.employeeRemove.deleteOne({"remove":"yes"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.employeeRemove.find()
+{ "_id" : ObjectId("5a9e8a64e1828f6623a154d9"), "name" : "vijay", "age" : "23", "degree" : "btech", "remove" : "yes" }
+{ "_id" : ObjectId("5a9e8a6ae1828f6623a154da"), "name" : "ankita", "age" : "23", "degree" : "btech", "remove" : "yes" }
+ 
+
+
+
+Task4 : Cursor Operations
+
+COUNT
+
+> db.employee.find().count()
+16
+
+> db.employee.find({"degree":"btech-cse"}).count()
+8
+> db.employee.find().sort({age:-1})
+{ "_id" : ObjectId("5a9e84cbd3feb5e142f0b804"), "name" : "sakshi", "age" : "26", "degree" : "mba" }
+{ "_id" : ObjectId("5a9e8470d3feb5e142f0b7ff"), "name" : "nikita", "age" : "25", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e84d7d3feb5e142f0b805"), "name" : "kritika", "age" : "25", "degree" : "bca" }
+{ "_id" : ObjectId("5a9e84acd3feb5e142f0b802"), "name" : "shradha", "age" : "24", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85bbd3feb5e142f0b80c"), "name" : "ankita", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85c1d3feb5e142f0b80d"), "name" : "ankit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e845cd3feb5e142f0b7fe"), "name" : "nishant", "age" : "22", "degree" : "btech" }
+{ "_id" : ObjectId("5a9e8530d3feb5e142f0b807"), "name" : "shikher", "age" : "21", "degree" : "bmc" }
+{ "_id" : ObjectId("5a9e84bfd3feb5e142f0b803"), "name" : "pulkit", "age" : "20", "degree" : "bba" }
+{ "_id" : ObjectId("5a9e851ad3feb5e142f0b806"), "name" : "divya", "age" : "20", "degree" : "bcom" }
+> 
+
+LIMIT
+> db.employee.find({"degree":"btech-cse"}).limit(5);
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+
+SKIP
+> db.employee.find({"degree":"btech-cse"}).skip(5);
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85bbd3feb5e142f0b80c"), "name" : "ankita", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85c1d3feb5e142f0b80d"), "name" : "ankit", "age" : "23", "degree" : "btech-cse" }
+
+
+
+> db.employee.find().sort({age:-1}).limit(7).skip(3).count()
+16
+
+precedence : count
+
+
+> db.employee.find().sort({age:-1}).limit(7).skip(3)
+{ "_id" : ObjectId("5a9e84acd3feb5e142f0b802"), "name" : "shradha", "age" : "24", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e8495d3feb5e142f0b800"), "name" : "mana", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+
+> db.employee.find().limit(10).skip(3)
+{ "_id" : ObjectId("5a9e849fd3feb5e142f0b801"), "name" : "harsh", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e84acd3feb5e142f0b802"), "name" : "shradha", "age" : "24", "degree" : "mca" }
+{ "_id" : ObjectId("5a9e84bfd3feb5e142f0b803"), "name" : "pulkit", "age" : "20", "degree" : "bba" }
+{ "_id" : ObjectId("5a9e84cbd3feb5e142f0b804"), "name" : "sakshi", "age" : "26", "degree" : "mba" }
+{ "_id" : ObjectId("5a9e84d7d3feb5e142f0b805"), "name" : "kritika", "age" : "25", "degree" : "bca" }
+{ "_id" : ObjectId("5a9e851ad3feb5e142f0b806"), "name" : "divya", "age" : "20", "degree" : "bcom" }
+{ "_id" : ObjectId("5a9e8530d3feb5e142f0b807"), "name" : "shikher", "age" : "21", "degree" : "bmc" }
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e8598d3feb5e142f0b809"), "name" : "Amit", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+
+
+> db.employee.find({"degree":"btech-cse"}).sort({name:1}).skip(5)
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+> db.employee.find({"degree":"btech-cse"}).skip(5).sort({name:1})
+{ "_id" : ObjectId("5a9e8590d3feb5e142f0b808"), "name" : "shalini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e85a5d3feb5e142f0b80b"), "name" : "yamini", "age" : "23", "degree" : "btech-cse" }
+{ "_id" : ObjectId("5a9e859fd3feb5e142f0b80a"), "name" : "yash", "age" : "23", "degree" : "btech-cse" }
+
+
+Task5: Bonus operations: findOne, insertMany, updateMany, deleteMany
+
+
+findOne
+
+> db.employee.findOne()
+{
+	"_id" : ObjectId("5a9e845cd3feb5e142f0b7fe"),
+	"name" : "nishant",
+	"age" : "22",
+	"degree" : "btech"
+}
+> db.employee.findOne({"degree":"mca"})
+{
+	"_id" : ObjectId("5a9e8470d3feb5e142f0b7ff"),
+	"name" : "nikita",
+	"age" : "25",
+	"degree" : "mca"
+}
+
+Remove many documents
+> db.employeeRemove.deleteMany({"remove":"yes"})
+{ "acknowledged" : true, "deletedCount" : 2 }
+> db.employeeRemove.find()
+
+
+> db.testInsertMany.insertMany(
+...    [
+...      { name: "akash", age: 34 },
+...      { name: "hina", age: 22 },
+...      { name: "ajeet", age: 34 }
+...    ]
+... )
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5a9e91eb43866b5a8edb2686"),
+		ObjectId("5a9e91eb43866b5a8edb2687"),
+		ObjectId("5a9e91eb43866b5a8edb2688")
+	]
+}
+> db.testInsertMany.find()
+{ "_id" : ObjectId("5a9e91eb43866b5a8edb2686"), "name" : "akash", "age" : 34 }
+{ "_id" : ObjectId("5a9e91eb43866b5a8edb2687"), "name" : "hina", "age" : 22 }
+{ "_id" : ObjectId("5a9e91eb43866b5a8edb2688"), "name" : "ajeet", "age" : 34 }
+
+
+db.testUpdateMany.insertMany(
+...    [
+...      { name: "akash", age: 34 , dept : 101,contact:123},
+...      { name: "hina", age: 22, dept :102 ,contact:123},
+...      { name: "ajeet", age: 34, dept : 102,contact:123 }
+...    ]
+... )
+
+
+> db.testUpdateMany.updateMany({"dept":102}, {$set: {"age":55}});
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.testUpdateMany.find()
+{ "_id" : ObjectId("5a9e939e43866b5a8edb268c"), "name" : "akash", "age" : 34, "dept" : 101, "contact" : 123 }
+{ "_id" : ObjectId("5a9e939e43866b5a8edb268d"), "name" : "hina", "age" : 55, "dept" : 102, "contact" : 123 }
+{ "_id" : ObjectId("5a9e939e43866b5a8edb268e"), "name" : "ajeet", "age" : 55, "dept" : 102, "contact" : 123 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
